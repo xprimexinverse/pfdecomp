@@ -13,7 +13,7 @@
 #' @examples
 ces <- function(y, k, l, beta, sigma, figure=FALSE){
 
-  ces_obj <- new("CES", output = y, capital = k, labour = l, beta = beta, sigma = sigma)
+  ces_obj <- methods::new("CES", output = y, capital = k, labour = l, beta = beta, sigma = sigma)
 
   # Compute substitution parameter
   sp <- (1 - sigma) / sigma

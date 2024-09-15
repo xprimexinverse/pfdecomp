@@ -13,7 +13,7 @@
 cobb_douglas <- function(y, k, l, beta, figure=FALSE){
 
   # Create a new Cobb-Douglas object with specified data
-  cd_obj <- new("Cobb-Douglas", output = y, capital = k, labour = l, beta = beta)
+  cd_obj <- methods::new("Cobb-Douglas", output = y, capital = k, labour = l, beta = beta)
 
   # Compute Solow residual
   a <- y / (k^(1 - beta) * l^beta)
