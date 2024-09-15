@@ -66,7 +66,7 @@ ces <- function(y, k, l, beta, sigma, figure=FALSE){
 
   if(figure){
     # Plotly
-    fig <- plot_ly(as.data.frame(ctg), x = (start(y)[1]+1):end(y)[1], y = ~k_ctg, type = 'bar', name = 'K')
+    fig <- plot_ly(as.data.frame(ctg), x = (stats::start(y)[1]+1):stats::end(y)[1], y = ~k_ctg, type = 'bar', name = 'K')
     fig <- fig %>% add_trace(y = ~l_ctg, name = 'L')
     fig <- fig %>% add_trace(y = ~a_ctg, name = 'A')
     fig <- fig %>% layout(title = chart_title, yaxis = list(title = '%'), barmode = 'relative')
