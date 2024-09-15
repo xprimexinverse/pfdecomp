@@ -8,7 +8,7 @@
 #' @slot contribs mts.
 #' @slot avg_gr matrix.
 #'
-#' @return
+#' @return Cobb-Douglas object.
 #' @export
 #'
 #' @examples
@@ -32,7 +32,7 @@ setClass("Cobb-Douglas",
 #' @slot contribs mts.
 #' @slot avg_gr matrix.
 #'
-#' @return
+#' @return CES object.
 #' @export
 #'
 #' @examples
