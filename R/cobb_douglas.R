@@ -44,11 +44,11 @@ cobb_douglas <- function(y, k, l, beta, figure=FALSE){
 
   # Plot the contributions to growth
   chart_title <- paste0("Cobb-Douglas - contributions to growth (beta = ",beta,")")
-  chart_subtitle <- paste0(start(cd_obj@contribs)[1]," - ", end(cd_obj@contribs)[1])
+  chart_subtitle <- paste0(stats::start(cd_obj@contribs)[1]," - ", stats::end(cd_obj@contribs)[1])
   chart_main <- paste0(chart_title,"\n",chart_subtitle)
   # Base R
   test <- t(cd_obj@contribs[,2:4]*100)
-  colnames(test) <- c(start(cd_obj@contribs)[1]:end(cd_obj@contribs)[1])
+  colnames(test) <- c(stats::start(cd_obj@contribs)[1]:stats::end(cd_obj@contribs)[1])
   posvals <- negvals <- test
   posvals[posvals<0] <- 0
   negvals[negvals>0] <- 0

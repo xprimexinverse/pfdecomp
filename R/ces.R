@@ -47,12 +47,12 @@ ces <- function(y, k, l, beta, sigma, figure=FALSE){
 
   # Plot the contributions to growth
   chart_title <- paste0("CES - contributions to growth (beta = ",beta,", sigma = ",sigma,")")
-  chart_subtitle <- paste0(start(ces_obj@contribs)[1]," - ", end(ces_obj@contribs)[1])
+  chart_subtitle <- paste0(stats::start(ces_obj@contribs)[1]," - ", stats::end(ces_obj@contribs)[1])
   chart_main <- paste0(chart_title,"\n",chart_subtitle)
   if(TRUE){
     # Base R
     test <- t(ces_obj@contribs[,2:4]*100)
-    colnames(test) <- c(start(ces_obj@contribs)[1]:end(ces_obj@contribs)[1])
+    colnames(test) <- c(stats::start(ces_obj@contribs)[1]:stats::end(ces_obj@contribs)[1])
     posvals <- negvals <- test
     posvals[posvals<0] <- 0
     negvals[negvals>0] <- 0
