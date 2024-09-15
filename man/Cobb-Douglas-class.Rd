@@ -4,6 +4,9 @@
 \name{Cobb-Douglas-class}
 \alias{Cobb-Douglas-class}
 \title{Class definition for pfdecomp Cobb-Douglas object}
+\value{
+Cobb-Douglas object.
+}
 \description{
 Class definition for pfdecomp Cobb-Douglas object
 }

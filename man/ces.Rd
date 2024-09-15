@@ -19,6 +19,9 @@ ces(y, k, l, beta, sigma, figure = FALSE)
 
 \item{figure}{A boolean value.}
 }
+\value{
+CES object.
+}
 \description{
 Growth accounting using CES production function (with labour augmenting technical progress)
 }

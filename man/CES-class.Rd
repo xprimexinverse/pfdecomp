@@ -4,6 +4,9 @@
 \name{CES-class}
 \alias{CES-class}
 \title{Class definition for pfdecomp CES object}
+\value{
+CES object.
+}
 \description{
 Class definition for pfdecomp CES object
 }

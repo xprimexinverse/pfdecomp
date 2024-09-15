@@ -17,6 +17,9 @@ cobb_douglas(y, k, l, beta, figure = FALSE)
 
 \item{figure}{A boolean value.}
 }
+\value{
+Cobb-Douglas object.
+}
 \description{
 Growth accounting using Cobb-Douglas production function
 }
