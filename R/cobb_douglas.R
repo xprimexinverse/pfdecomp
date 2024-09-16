@@ -53,19 +53,19 @@ cobb_douglas <- function(y, k, l, beta, figure=FALSE){
   posvals[posvals<0] <- 0
   negvals[negvals>0] <- 0
   myrange <- c(min(colSums(negvals)),max(colSums(posvals)))
-  barplot(posvals,ylim=myrange,col=c("blue","yellow","green"),las=1,main = chart_main)
-  zzz<-barplot(negvals,add=TRUE,ylim=rev(myrange),col=c("blue","yellow","green","red"),las=1)
-  legend("topleft",legend = c("K","L","A","Y"),col = c("blue","yellow","green","red"),pch = c(rep(15,3),20))
-  lines(zzz,t(cd_obj@contribs[,1]*100),lwd=2,col="red")
-  points(zzz,t(cd_obj@contribs[,1]*100),pch=20,col="red")
+  graphics::barplot(posvals,ylim=myrange,col=c("blue","yellow","green"),las=1,main = chart_main)
+  zzz<-graphics::barplot(negvals,add=TRUE,ylim=rev(myrange),col=c("blue","yellow","green","red"),las=1)
+  graphics::legend("topleft",legend = c("K","L","A","Y"),col = c("blue","yellow","green","red"),pch = c(rep(15,3),20))
+  graphics::lines(zzz,t(cd_obj@contribs[,1]*100),lwd=2,col="red")
+  graphics::points(zzz,t(cd_obj@contribs[,1]*100),pch=20,col="red")
 
   if(figure){
     # Plotly
-    fig <- plot_ly(as.data.frame(ctg), x = (stats::start(y)[1]+1):stats::end(y)[1], y = ~k_ctg, type = 'bar', name = 'K')
-    fig <- fig %>% add_trace(y = ~l_ctg, name = 'L')
-    fig <- fig %>% add_trace(y = ~a_ctg, name = 'A')
-    fig <- fig %>% layout(title=chart_title,yaxis = list(title = '%'), barmode = 'relative')
-    fig <- fig %>% add_trace(y = ~y_pc, name = 'Y', type = 'scatter', mode ='lines+markers')
+    fig <- plotly::plot_ly(as.data.frame(ctg), x = (stats::start(y)[1]+1):stats::end(y)[1], y = ~k_ctg, type = 'bar', name = 'K')
+    fig <- fig %>% plotly::add_trace(y = ~l_ctg, name = 'L')
+    fig <- fig %>% plotly::add_trace(y = ~a_ctg, name = 'A')
+    fig <- fig %>% graphics::layout(title=chart_title,yaxis = list(title = '%'), barmode = 'relative')
+    fig <- fig %>% plotly::add_trace(y = ~y_pc, name = 'Y', type = 'scatter', mode ='lines+markers')
     print(fig)
     #orca(last_plot(),file = paste0("./CD_ctg_",beta,".png"))
   }
