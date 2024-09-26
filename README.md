@@ -3,6 +3,8 @@
 
 # pfdecomp
 
+<a href="https://xprimexinverse.github.io/pfdecomp/"><img src="man/figures/logo.png" align="right" height="139" alt="pfdecomp website" /></a>
+
 UNDER CONSTRUCTION - come back later…
 
 <!-- badges: start -->
