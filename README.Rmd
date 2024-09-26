@@ -20,7 +20,7 @@ UNDER CONSTRUCTION - come back later...
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of pfdecomp is to decompose production functions into contributions to growth from each of the factors...
+The goal of pfdecomp is to provide a tool for growth accounting. The package can be used to decompose a production function into contributions to growth from capital, labour, and technology. The production functions that can be used in pfdecomp are (i) Cobb-Douglas and (ii) CES with labour augmenting technology.
 
 ## Installation
 
@@ -33,7 +33,7 @@ pak::pak("xprimexinverse/pfdecomp")
 
 ## Example
 
-This is a basic example which shows you how to perform growth accounting for Ireland using data from AMECO:
+This basic example shows you how to perform growth accounting for Ireland using data from AMECO:
 
 ```{r example}
 library(pfdecomp)
@@ -48,6 +48,13 @@ cd07 <- cobb_douglas(y = window(OVGD, start = 1970), k = window(OKND, start = 19
 cd07@contribs
 
 cd07@avg_gr
+
+ces05 <- ces(y = window(OVGD, start = 1970), k = window(OKND, start = 1970), l = window(NLHT, start = 1970), beta = 0.7, sigma = 0.5, figure = FALSE)
+
+ces05@contribs
+
+ces05@avg_gr
+
 
 ```
 
