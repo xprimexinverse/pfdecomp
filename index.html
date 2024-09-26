@@ -50,7 +50,7 @@
 <p>UNDER CONSTRUCTION - come back later…</p>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>The goal of pfdecomp is to decompose production functions into contributions to growth from each of the factors…</p>
+<p>The goal of pfdecomp is to provide a tool for growth accounting. The package can be used to decompose a production function into contributions to growth from capital, labour, and technology. The production functions that can be used in pfdecomp are (i) Cobb-Douglas and (ii) CES with labour augmenting technology.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -62,7 +62,7 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>This is a basic example which shows you how to perform growth accounting for Ireland using data from AMECO:</p>
+<p>This basic example shows you how to perform growth accounting for Ireland using data from AMECO:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://xprimexinverse.github.io/pfdecomp/">pfdecomp</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ecmacro</span><span class="op">)</span></span>
@@ -145,7 +145,77 @@
 <span></span>
 <span><span class="va">cd07</span><span class="op">@</span><span class="va">avg_gr</span></span>
 <span><span class="co">#&gt;                             Y          A          K           L</span></span>
-<span><span class="co">#&gt; Average growth rate 0.0505068 0.03297548 0.01098335 0.006388099</span></span></code></pre></div>
+<span><span class="co">#&gt; Average growth rate 0.0505068 0.03297548 0.01098335 0.006388099</span></span>
+<span></span>
+<span><span class="va">ces05</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ces.html">ces</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/window.html" class="external-link">window</a></span><span class="op">(</span><span class="va">OVGD</span>, start <span class="op">=</span> <span class="fl">1970</span><span class="op">)</span>, k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/window.html" class="external-link">window</a></span><span class="op">(</span><span class="va">OKND</span>, start <span class="op">=</span> <span class="fl">1970</span><span class="op">)</span>, l <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/window.html" class="external-link">window</a></span><span class="op">(</span><span class="va">NLHT</span>, start <span class="op">=</span> <span class="fl">1970</span><span class="op">)</span>, beta <span class="op">=</span> <span class="fl">0.7</span>, sigma <span class="op">=</span> <span class="fl">0.5</span>, figure <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-example-5.png" width="100%"></p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">ces05</span><span class="op">@</span><span class="va">contribs</span></span>
+<span><span class="co">#&gt; Time Series:</span></span>
+<span><span class="co">#&gt; Start = 1971 </span></span>
+<span><span class="co">#&gt; End = 2025 </span></span>
+<span><span class="co">#&gt; Frequency = 1 </span></span>
+<span><span class="co">#&gt;              y_pc         k_ctg         l_ctg        a_ctg</span></span>
+<span><span class="co">#&gt; 1971  0.034698101  0.0052468028  0.0037283205  0.025617399</span></span>
+<span><span class="co">#&gt; 1972  0.064899468  0.0054580260 -0.0188800133  0.079992265</span></span>
+<span><span class="co">#&gt; 1973  0.047213815  0.0062155586  0.0078902333  0.032822049</span></span>
+<span><span class="co">#&gt; 1974  0.042600604  0.0048232455 -0.0018905265  0.039750796</span></span>
+<span><span class="co">#&gt; 1975  0.056568614  0.0044597886 -0.0110041456  0.063889348</span></span>
+<span><span class="co">#&gt; 1976  0.013498847  0.0045419647 -0.0103377931  0.019516677</span></span>
+<span><span class="co">#&gt; 1977  0.081209902  0.0045656927  0.0164015153  0.059171473</span></span>
+<span><span class="co">#&gt; 1978  0.071261181  0.0052406244  0.0019055876  0.063980179</span></span>
+<span><span class="co">#&gt; 1979  0.030526978  0.0057478650  0.0368629373 -0.011612061</span></span>
+<span><span class="co">#&gt; 1980  0.030561914  0.0046689360 -0.0246934937  0.051998754</span></span>
+<span><span class="co">#&gt; 1981  0.033056229  0.0049438078 -0.0161186598  0.045027658</span></span>
+<span><span class="co">#&gt; 1982  0.022640274  0.0041191336 -0.0068313984  0.025543616</span></span>
+<span><span class="co">#&gt; 1983 -0.002391222  0.0030608452 -0.0125118666  0.007157511</span></span>
+<span><span class="co">#&gt; 1984  0.043390399  0.0028534631 -0.0246462337  0.066986040</span></span>
+<span><span class="co">#&gt; 1985  0.030997300  0.0022620644 -0.0008830277  0.029646862</span></span>
+<span><span class="co">#&gt; 1986  0.002896668  0.0019784140  0.0096552404 -0.008645964</span></span>
+<span><span class="co">#&gt; 1987  0.046631540  0.0016781362 -0.0036087251  0.048754428</span></span>
+<span><span class="co">#&gt; 1988  0.042661380  0.0016145265  0.0040108078  0.036874044</span></span>
+<span><span class="co">#&gt; 1989  0.062117677  0.0021549533  0.0021299566  0.057697669</span></span>
+<span><span class="co">#&gt; 1990  0.076380800  0.0027162746  0.0344088706  0.037818525</span></span>
+<span><span class="co">#&gt; 1991  0.019296023  0.0019875771 -0.0181788443  0.036214212</span></span>
+<span><span class="co">#&gt; 1992  0.033433188  0.0019407126 -0.0143731337  0.046606273</span></span>
+<span><span class="co">#&gt; 1993  0.026926048  0.0015268916  0.0014701274  0.023890151</span></span>
+<span><span class="co">#&gt; 1994  0.057558731  0.0018712039  0.0292583255  0.025596786</span></span>
+<span><span class="co">#&gt; 1995  0.098058351  0.0026021970  0.0400231830  0.053053729</span></span>
+<span><span class="co">#&gt; 1996  0.073796762  0.0036089450  0.0070841369  0.062604321</span></span>
+<span><span class="co">#&gt; 1997  0.110217868  0.0048386255  0.0063454056  0.098325361</span></span>
+<span><span class="co">#&gt; 1998  0.087660514  0.0058883749  0.0195541051  0.060859627</span></span>
+<span><span class="co">#&gt; 1999  0.105299499  0.0070375382  0.0453072832  0.050333602</span></span>
+<span><span class="co">#&gt; 2000  0.094035193  0.0071070678  0.0317775830  0.053196140</span></span>
+<span><span class="co">#&gt; 2001  0.053057844  0.0071660929  0.0136255043  0.031765837</span></span>
+<span><span class="co">#&gt; 2002  0.058993537  0.0071410362  0.0057606133  0.045786652</span></span>
+<span><span class="co">#&gt; 2003  0.030140860  0.0072147979  0.0018734162  0.021007265</span></span>
+<span><span class="co">#&gt; 2004  0.067884877  0.0078403223  0.0204512750  0.038679890</span></span>
+<span><span class="co">#&gt; 2005  0.057395642  0.0088984478  0.0407322933  0.007416574</span></span>
+<span><span class="co">#&gt; 2006  0.049878374  0.0085422876  0.0281679076  0.012754834</span></span>
+<span><span class="co">#&gt; 2007  0.053101191  0.0077224314  0.0230162904  0.021786089</span></span>
+<span><span class="co">#&gt; 2008 -0.044840622  0.0050630811 -0.0259709646 -0.024659795</span></span>
+<span><span class="co">#&gt; 2009 -0.050958024  0.0027422730 -0.0979090856  0.049675580</span></span>
+<span><span class="co">#&gt; 2010  0.016829748  0.0013100278 -0.0375291796  0.055386704</span></span>
+<span><span class="co">#&gt; 2011  0.012807448  0.0011576525 -0.0158272175  0.027975138</span></span>
+<span><span class="co">#&gt; 2012 -0.001297067  0.0020212433 -0.0066079008  0.003314169</span></span>
+<span><span class="co">#&gt; 2013  0.011746495  0.0014234619  0.0342300656 -0.023022732</span></span>
+<span><span class="co">#&gt; 2014  0.088290150  0.0025072804  0.0293396301  0.054630244</span></span>
+<span><span class="co">#&gt; 2015  0.244752100  0.0015567830  0.0265187789  0.210174940</span></span>
+<span><span class="co">#&gt; 2016  0.017655711  0.0076193463  0.0440950218 -0.032401859</span></span>
+<span><span class="co">#&gt; 2017  0.093112599  0.0057675118  0.0357960644  0.049478289</span></span>
+<span><span class="co">#&gt; 2018  0.084702871  0.0027310898  0.0311314636  0.049035443</span></span>
+<span><span class="co">#&gt; 2019  0.052977289  0.0212145234  0.0255820978  0.006001890</span></span>
+<span><span class="co">#&gt; 2020  0.066172045  0.0094367918 -0.0829946793  0.154675546</span></span>
+<span><span class="co">#&gt; 2021  0.151252255 -0.0029880028  0.0547536184  0.093361721</span></span>
+<span><span class="co">#&gt; 2022  0.094330063 -0.0025329101  0.0700848430  0.024661241</span></span>
+<span><span class="co">#&gt; 2023 -0.031987877 -0.0015188590  0.0314161882 -0.059603925</span></span>
+<span><span class="co">#&gt; 2024  0.012437125 -0.0009951164  0.0145483340 -0.001096580</span></span>
+<span><span class="co">#&gt; 2025  0.035927766 -0.0003003425  0.0185580554  0.017274635</span></span>
+<span></span>
+<span><span class="va">ces05</span><span class="op">@</span><span class="va">avg_gr</span></span>
+<span><span class="co">#&gt;                             Y          A           K          L</span></span>
+<span><span class="co">#&gt; Average growth rate 0.0505068 0.03872422 0.004115809 0.00764759</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
