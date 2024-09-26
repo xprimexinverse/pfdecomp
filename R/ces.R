@@ -23,15 +23,15 @@ ces <- function(y, k, l, beta, sigma, figure=FALSE){
   ces_obj@solow <- a
 
   # Compute growth rates
-  y_pc <- log(y) - stats::lag(log(y), k = -1)
-  k_pc <- log(k) - stats::lag(log(k), k = -1)
-  l_pc <- log(l) - stats::lag(log(l), k = -1)
-  a_pc <- log(a) - stats::lag(log(a), k = -1)
+  # y_pc <- log(y) - stats::lag(log(y), k = -1)
+  # k_pc <- log(k) - stats::lag(log(k), k = -1)
+  # l_pc <- log(l) - stats::lag(log(l), k = -1)
+  # a_pc <- log(a) - stats::lag(log(a), k = -1)
 
-  # y_pc <- diff(y)/lag(y,k=-1)
-  # k_pc <- diff(k)/lag(k,k=-1)
-  # l_pc <- diff(l)/lag(l,k=-1)
-  # a_pc <- diff(a)/lag(a,k=-1)
+  y_pc <- diff(y)/lag(y,k=-1)
+  k_pc <- diff(k)/lag(k,k=-1)
+  l_pc <- diff(l)/lag(l,k=-1)
+  a_pc <- diff(a)/lag(a,k=-1)
 
   # Compute contributions to growth (percent of y)
   k_ctgy <- (((1 - beta) * k^(-sp)) / ((1 - beta) * k^(-sp) + beta * (a * l)^(-sp)) * k_pc) / y_pc
