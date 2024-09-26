@@ -62,24 +62,90 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
+<p>This is a basic example which shows you how to perform growth accounting for Ireland using data from AMECO:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://xprimexinverse.github.io/pfdecomp/">pfdecomp</a></span><span class="op">)</span></span>
-<span><span class="co">## basic example code</span></span></code></pre></div>
-<p>What is special about using <code>README.Rmd</code> instead of just <code>README.md</code>? You can include R chunks like so:</p>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ecmacro</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">OVGD</span> <span class="op">&lt;-</span> <span class="fu">get_series</span><span class="op">(</span><span class="va">AMECO_spring_2024</span>, <span class="st">"IRL.1.1.0.0.OVGD"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-example-1.png" width="100%"></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      speed           dist       </span></span>
-<span><span class="co">#&gt;  Min.   : 4.0   Min.   :  2.00  </span></span>
-<span><span class="co">#&gt;  1st Qu.:12.0   1st Qu.: 26.00  </span></span>
-<span><span class="co">#&gt;  Median :15.0   Median : 36.00  </span></span>
-<span><span class="co">#&gt;  Mean   :15.4   Mean   : 42.98  </span></span>
-<span><span class="co">#&gt;  3rd Qu.:19.0   3rd Qu.: 56.00  </span></span>
-<span><span class="co">#&gt;  Max.   :25.0   Max.   :120.00</span></span></code></pre></div>
-<p>You’ll still need to render <code>README.Rmd</code> regularly, to keep <code>README.md</code> up-to-date. <code>devtools::build_readme()</code> is handy for this.</p>
-<p>You can also embed plots, for example:</p>
-<p><img src="reference/figures/README-pressure-1.png" width="100%"></p>
-<p>In that case, don’t forget to commit and push the resulting figure files, so they display on GitHub and CRAN.</p>
+<code class="sourceCode R"><span><span class="va">OKND</span> <span class="op">&lt;-</span> <span class="fu">get_series</span><span class="op">(</span><span class="va">AMECO_spring_2024</span>, <span class="st">"IRL.1.0.0.0.OKND"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-example-2.png" width="100%"></p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">NLHT</span> <span class="op">&lt;-</span> <span class="fu">get_series</span><span class="op">(</span><span class="va">AMECO_spring_2024</span>, <span class="st">"IRL.1.0.0.0.NLHT"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-example-3.png" width="100%"></p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">cd07</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cobb_douglas.html">cobb_douglas</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/window.html" class="external-link">window</a></span><span class="op">(</span><span class="va">OVGD</span>, start <span class="op">=</span> <span class="fl">1970</span><span class="op">)</span>, k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/window.html" class="external-link">window</a></span><span class="op">(</span><span class="va">OKND</span>, start <span class="op">=</span> <span class="fl">1970</span><span class="op">)</span>, l <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/window.html" class="external-link">window</a></span><span class="op">(</span><span class="va">NLHT</span>, start <span class="op">=</span> <span class="fl">1970</span><span class="op">)</span>, beta <span class="op">=</span> <span class="fl">0.7</span>, figure <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-example-4.png" width="100%"></p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">cd07</span><span class="op">@</span><span class="va">contribs</span></span>
+<span><span class="co">#&gt; Time Series:</span></span>
+<span><span class="co">#&gt; Start = 1971 </span></span>
+<span><span class="co">#&gt; End = 2025 </span></span>
+<span><span class="co">#&gt; Frequency = 1 </span></span>
+<span><span class="co">#&gt;              y_pc        k_ctg         l_ctg        a_ctg</span></span>
+<span><span class="co">#&gt; 1971  0.034698101  0.016505743  0.0028849417  0.015278549</span></span>
+<span><span class="co">#&gt; 1972  0.064899468  0.017039607 -0.0146210032  0.062987124</span></span>
+<span><span class="co">#&gt; 1973  0.047213815  0.019749563  0.0060990047  0.021154510</span></span>
+<span><span class="co">#&gt; 1974  0.042600604  0.015456717 -0.0014600505  0.028506803</span></span>
+<span><span class="co">#&gt; 1975  0.056568614  0.014165493 -0.0085063281  0.051001701</span></span>
+<span><span class="co">#&gt; 1976  0.013498847  0.014943391 -0.0079625034  0.006856957</span></span>
+<span><span class="co">#&gt; 1977  0.081209902  0.014567838  0.0126725703  0.052634725</span></span>
+<span><span class="co">#&gt; 1978  0.071261181  0.016465752  0.0014747210  0.052674105</span></span>
+<span><span class="co">#&gt; 1979  0.030526978  0.018611707  0.0284388968 -0.015738128</span></span>
+<span><span class="co">#&gt; 1980  0.030561914  0.015423998 -0.0190119552  0.034934899</span></span>
+<span><span class="co">#&gt; 1981  0.033056229  0.016688921 -0.0123835899  0.029192804</span></span>
+<span><span class="co">#&gt; 1982  0.022640274  0.014242744 -0.0052362943  0.013823452</span></span>
+<span><span class="co">#&gt; 1983 -0.002391222  0.010997777 -0.0095561961 -0.003566672</span></span>
+<span><span class="co">#&gt; 1984  0.043390399  0.010159028 -0.0188398851  0.052936220</span></span>
+<span><span class="co">#&gt; 1985  0.030997300  0.008020202 -0.0006752552  0.023560565</span></span>
+<span><span class="co">#&gt; 1986  0.002896668  0.007161210  0.0073694516 -0.011449474</span></span>
+<span><span class="co">#&gt; 1987  0.046631540  0.005918159 -0.0027609759  0.043398156</span></span>
+<span><span class="co">#&gt; 1988  0.042661380  0.005562110  0.0030753743  0.033753806</span></span>
+<span><span class="co">#&gt; 1989  0.062117677  0.007156456  0.0016390334  0.052907278</span></span>
+<span><span class="co">#&gt; 1990  0.076380800  0.008621295  0.0266004792  0.039767417</span></span>
+<span><span class="co">#&gt; 1991  0.019296023  0.006319399 -0.0140509857  0.027421615</span></span>
+<span><span class="co">#&gt; 1992  0.033433188  0.006092020 -0.0111243463  0.038803063</span></span>
+<span><span class="co">#&gt; 1993  0.026926048  0.004741098  0.0011391497  0.020943982</span></span>
+<span><span class="co">#&gt; 1994  0.057558731  0.005596473  0.0227642214  0.028412498</span></span>
+<span><span class="co">#&gt; 1995  0.098058351  0.007259250  0.0313921355  0.057240359</span></span>
+<span><span class="co">#&gt; 1996  0.073796762  0.009678305  0.0055835062  0.057718173</span></span>
+<span><span class="co">#&gt; 1997  0.110217868  0.012161609  0.0050438031  0.091561225</span></span>
+<span><span class="co">#&gt; 1998  0.087660514  0.014253792  0.0156242281  0.056172083</span></span>
+<span><span class="co">#&gt; 1999  0.105299499  0.016247305  0.0364518456  0.049967555</span></span>
+<span><span class="co">#&gt; 2000  0.094035193  0.015786736  0.0257176787  0.050462951</span></span>
+<span><span class="co">#&gt; 2001  0.053057844  0.015917874  0.0110271524  0.025568427</span></span>
+<span><span class="co">#&gt; 2002  0.058993537  0.015765737  0.0046665369  0.038006945</span></span>
+<span><span class="co">#&gt; 2003  0.030140860  0.016302808  0.0015121519  0.012385846</span></span>
+<span><span class="co">#&gt; 2004  0.067884877  0.017561187  0.0165298555  0.032802337</span></span>
+<span><span class="co">#&gt; 2005  0.057395642  0.020113094  0.0328761286  0.004222819</span></span>
+<span><span class="co">#&gt; 2006  0.049878374  0.019591793  0.0226847994  0.007397954</span></span>
+<span><span class="co">#&gt; 2007  0.053101191  0.017817228  0.0185194395  0.016283588</span></span>
+<span><span class="co">#&gt; 2008 -0.044840622  0.012749724 -0.0206384093 -0.036723257</span></span>
+<span><span class="co">#&gt; 2009 -0.050958024  0.007457179 -0.0770349127  0.022187202</span></span>
+<span><span class="co">#&gt; 2010  0.016829748  0.003544849 -0.0295461294  0.044306920</span></span>
+<span><span class="co">#&gt; 2011  0.012807448  0.003125139 -0.0124641946  0.022441763</span></span>
+<span><span class="co">#&gt; 2012 -0.001297067  0.005564876 -0.0051911845 -0.001599991</span></span>
+<span><span class="co">#&gt; 2013  0.011746495  0.003924236  0.0268869003 -0.018432154</span></span>
+<span><span class="co">#&gt; 2014  0.088290150  0.006488746  0.0232306716  0.056894306</span></span>
+<span><span class="co">#&gt; 2015  0.244752100  0.003272006  0.0216539562  0.214528966</span></span>
+<span><span class="co">#&gt; 2016  0.017655711  0.016607443  0.0357929626 -0.033013075</span></span>
+<span><span class="co">#&gt; 2017  0.093112599  0.011958715  0.0292959458  0.049803722</span></span>
+<span><span class="co">#&gt; 2018  0.084702871  0.005313068  0.0257652828  0.052046275</span></span>
+<span><span class="co">#&gt; 2019  0.052977289  0.045084570  0.0208508800 -0.010867336</span></span>
+<span><span class="co">#&gt; 2020  0.066172045  0.020068426 -0.0676379028  0.122750775</span></span>
+<span><span class="co">#&gt; 2021  0.151252255 -0.005419781  0.0459229214  0.107206578</span></span>
+<span><span class="co">#&gt; 2022  0.094330063 -0.004140347  0.0600871074  0.037345089</span></span>
+<span><span class="co">#&gt; 2023 -0.031987877 -0.002543059  0.0267918075 -0.054695876</span></span>
+<span><span class="co">#&gt; 2024  0.012437125 -0.001636699  0.0124557741  0.001656718</span></span>
+<span><span class="co">#&gt; 2025  0.035927766 -0.000476094  0.0160230717  0.020131409</span></span>
+<span></span>
+<span><span class="va">cd07</span><span class="op">@</span><span class="va">avg_gr</span></span>
+<span><span class="co">#&gt;                             Y          A          K           L</span></span>
+<span><span class="co">#&gt; Average growth rate 0.0505068 0.03297548 0.01098335 0.006388099</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
