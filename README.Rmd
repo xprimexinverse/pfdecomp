@@ -33,25 +33,21 @@ pak::pak("xprimexinverse/pfdecomp")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows you how to perform growth accounting for Ireland using data from AMECO:
 
 ```{r example}
 library(pfdecomp)
-## basic example code
+library(ecmacro)
+
+OVGD <- get_series(AMECO_spring_2024, "IRL.1.1.0.0.OVGD")
+OKND <- get_series(AMECO_spring_2024, "IRL.1.0.0.0.OKND")
+NLHT <- get_series(AMECO_spring_2024, "IRL.1.0.0.0.NLHT")
+
+cd07 <- cobb_douglas(y = window(OVGD, start = 1970), k = window(OKND, start = 1970), l = window(NLHT, start = 1970), beta = 0.7, figure = FALSE)
+
+cd07@contribs
+
+cd07@avg_gr
+
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
-
-```{r cars}
-summary(cars)
-```
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
