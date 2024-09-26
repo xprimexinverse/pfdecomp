@@ -8,6 +8,13 @@
 \description{
 A package for decomposing Cobb-Douglas and CES production functions into contributions from factors inputs.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://xprimexinverse.github.io/pfdecomp/}
+}
+
+}
 \author{
 \strong{Maintainer}: Graeme Walsh \email{graeme.walsh@hotmail.co.uk} (\href{https://orcid.org/0009-0005-9190-376X}{ORCID})
 
