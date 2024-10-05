@@ -44,18 +44,18 @@ cobb_douglas <- function(y, k, l, beta, figure=FALSE){
 
   # Plot the contributions to growth
   chart_title <- paste0("Cobb-Douglas - contributions to growth (beta = ",beta,")")
-  if(frequency(cd_obj@contribs)==1){
+  if(stats::frequency(cd_obj@contribs)==1){
     chart_subtitle <- paste0(stats::start(cd_obj@contribs)[1], " - ", stats::end(cd_obj@contribs)[1])
-  }else if(frequency(cd_obj@contribs)==4){
-    chart_subtitle <- paste0(time(cd_obj@contribs)[1], " - ", time(cd_obj@contribs)[length(time(cd_obj@contribs))])
+  }else if(stats::frequency(cd_obj@contribs)==4){
+    chart_subtitle <- paste0(stats::time(cd_obj@contribs)[1], " - ", stats::time(cd_obj@contribs)[length(stats::time(cd_obj@contribs))])
   }
   chart_main <- paste0(chart_title,"\n",chart_subtitle)
   # Base R
   test <- t(cd_obj@contribs[,2:4]*100)
-  if(frequency(cd_obj@contribs)==1){
+  if(stats::frequency(cd_obj@contribs)==1){
     colnames(test) <- c(stats::start(cd_obj@contribs)[1]:stats::end(cd_obj@contribs)[1])
-  }else if(frequency(cd_obj@contribs)==4){
-    colnames(test) <- time(cd_obj@contribs)
+  }else if(stats::frequency(cd_obj@contribs)==4){
+    colnames(test) <- stats::time(cd_obj@contribs)
   }
   posvals <- negvals <- test
   posvals[posvals<0] <- 0
