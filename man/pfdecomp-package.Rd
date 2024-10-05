@@ -6,6 +6,8 @@
 \alias{pfdecomp-package}
 \title{pfdecomp: Production Function Decomposition}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 A package for decomposing Cobb-Douglas and CES production functions into contributions from factors inputs.
 }
 \seealso{
