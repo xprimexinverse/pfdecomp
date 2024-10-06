@@ -6,12 +6,13 @@
 #' @param beta A numeric value.
 #' @param sigma A numeric value.
 #' @param figure A boolean value.
+#' @param gr_opt A character value.
 #'
 #' @return CES object.
 #' @export
 #'
 #' @examples
-ces <- function(y, k, l, beta, sigma, figure=FALSE){
+ces <- function(y, k, l, beta, sigma, figure=FALSE, gr_opt="log"){
 
   ces_obj <- methods::new("CES", output = y, capital = k, labour = l, beta = beta, sigma = sigma)
 
@@ -22,16 +23,18 @@ ces <- function(y, k, l, beta, sigma, figure=FALSE){
   a <- (1/l) * (beta / (y^(-sp) - (1 - beta) * k^(-sp)))^(1/sp)
   ces_obj@solow <- a
 
-  # Compute growth rates
-  # y_pc <- log(y) - stats::lag(log(y), k = -1)
-  # k_pc <- log(k) - stats::lag(log(k), k = -1)
-  # l_pc <- log(l) - stats::lag(log(l), k = -1)
-  # a_pc <- log(a) - stats::lag(log(a), k = -1)
-
-  y_pc <- diff(y)/stats::lag(y,k=-1)
-  k_pc <- diff(k)/stats::lag(k,k=-1)
-  l_pc <- diff(l)/stats::lag(l,k=-1)
-  a_pc <- diff(a)/stats::lag(a,k=-1)
+  # Compute growth rates (percentage changes)
+  if(gr_opt=="log"){
+    y_pc <- log(y) - stats::lag(log(y), k = -1)
+    k_pc <- log(k) - stats::lag(log(k), k = -1)
+    l_pc <- log(l) - stats::lag(log(l), k = -1)
+    a_pc <- log(a) - stats::lag(log(a), k = -1)
+  }else if(gr_opt=="pc"){
+    y_pc <- diff(y)/stats::lag(y,k=-1)
+    k_pc <- diff(k)/stats::lag(k,k=-1)
+    l_pc <- diff(l)/stats::lag(l,k=-1)
+    a_pc <- diff(a)/stats::lag(a,k=-1)
+  }
 
   # Compute contributions to growth (percent of y)
   k_ctgy <- (((1 - beta) * k^(-sp)) / ((1 - beta) * k^(-sp) + beta * (a * l)^(-sp)) * k_pc) / y_pc
@@ -47,12 +50,20 @@ ces <- function(y, k, l, beta, sigma, figure=FALSE){
 
   # Plot the contributions to growth
   chart_title <- paste0("CES - contributions to growth (beta = ",beta,", sigma = ",sigma,")")
-  chart_subtitle <- paste0(stats::start(ces_obj@contribs)[1]," - ", stats::end(ces_obj@contribs)[1])
+  if(stats::frequency(ces_obj@contribs)==1){
+    chart_subtitle <- paste0(stats::start(ces_obj@contribs)[1]," - ", stats::end(ces_obj@contribs)[1])
+  }else if(stats::frequency(ces_obj@contribs)==4){
+    chart_subtitle <- paste0(stats::time(ces_obj@contribs)[1], " - ", stats::time(ces_obj@contribs)[length(stats::time(ces_obj@contribs))])
+  }
   chart_main <- paste0(chart_title,"\n",chart_subtitle)
   if(TRUE){
     # Base R
     test <- t(ces_obj@contribs[,2:4]*100)
-    colnames(test) <- c(stats::start(ces_obj@contribs)[1]:stats::end(ces_obj@contribs)[1])
+    if(stats::frequency(ces_obj@contribs)==1){
+      colnames(test) <- c(stats::start(ces_obj@contribs)[1]:stats::end(ces_obj@contribs)[1])
+    }else if(stats::frequency(ces_obj@contribs)==4){
+      colnames(test) <- stats::time(ces_obj@contribs)
+    }
     posvals <- negvals <- test
     posvals[posvals<0] <- 0
     negvals[negvals>0] <- 0
