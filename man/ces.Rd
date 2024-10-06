@@ -4,7 +4,7 @@
 \alias{ces}
 \title{Growth accounting using CES production function (with labour augmenting technical progress)}
 \usage{
-ces(y, k, l, beta, sigma, figure = FALSE)
+ces(y, k, l, beta, sigma, figure = FALSE, gr_opt = "log")
 }
 \arguments{
 \item{y}{A ts object.}
@@ -18,6 +18,8 @@ ces(y, k, l, beta, sigma, figure = FALSE)
 \item{sigma}{A numeric value.}
 
 \item{figure}{A boolean value.}
+
+\item{gr_opt}{A character value.}
 }
 \value{
 CES object.
