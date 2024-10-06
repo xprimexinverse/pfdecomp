@@ -5,12 +5,13 @@
 #' @param l A ts object.
 #' @param beta A numeric value.
 #' @param figure A boolean value.
+#' @param gr_opt A character value.
 #'
 #' @return Cobb-Douglas object.
 #' @export
 #'
 #' @examples
-cobb_douglas <- function(y, k, l, beta, figure=FALSE){
+cobb_douglas <- function(y, k, l, beta, figure=FALSE, gr_opt="log"){
 
   # Create a new Cobb-Douglas object with specified data
   cd_obj <- methods::new("Cobb-Douglas", output = y, capital = k, labour = l, beta = beta)
@@ -20,15 +21,17 @@ cobb_douglas <- function(y, k, l, beta, figure=FALSE){
   cd_obj@solow <- a
 
   # Compute growth rates (percentage changes)
-  # y_pc <- log(y) - stats::lag(log(y), k = -1)
-  # k_pc <- log(k) - stats::lag(log(k), k = -1)
-  # l_pc <- log(l) - stats::lag(log(l), k = -1)
-  # a_pc <- log(a) - stats::lag(log(a), k = -1)
-
-  y_pc <- diff(y)/stats::lag(y,k=-1)
-  k_pc <- diff(k)/stats::lag(k,k=-1)
-  l_pc <- diff(l)/stats::lag(l,k=-1)
-  a_pc <- diff(a)/stats::lag(a,k=-1)
+  if(gr_opt=="log"){
+    y_pc <- log(y) - stats::lag(log(y), k = -1)
+    k_pc <- log(k) - stats::lag(log(k), k = -1)
+    l_pc <- log(l) - stats::lag(log(l), k = -1)
+    a_pc <- log(a) - stats::lag(log(a), k = -1)
+  }else if(gr_opt=="pc"){
+    y_pc <- diff(y)/stats::lag(y,k=-1)
+    k_pc <- diff(k)/stats::lag(k,k=-1)
+    l_pc <- diff(l)/stats::lag(l,k=-1)
+    a_pc <- diff(a)/stats::lag(a,k=-1)
+  }
 
   # Compute contributions to growth (percent of y)
   k_ctgy <- ((1 - beta) * k_pc) / y_pc

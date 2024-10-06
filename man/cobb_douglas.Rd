@@ -4,7 +4,7 @@
 \alias{cobb_douglas}
 \title{Growth accounting using Cobb-Douglas production function}
 \usage{
-cobb_douglas(y, k, l, beta, figure = FALSE)
+cobb_douglas(y, k, l, beta, figure = FALSE, gr_opt = "log")
 }
 \arguments{
 \item{y}{A ts object.}
@@ -16,6 +16,8 @@ cobb_douglas(y, k, l, beta, figure = FALSE)
 \item{beta}{A numeric value.}
 
 \item{figure}{A boolean value.}
+
+\item{gr_opt}{A character value.}
 }
 \value{
 Cobb-Douglas object.
